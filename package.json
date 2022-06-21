@@ -1,0 +1,24 @@
+{
+  "name": "blogger",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DCXan/Blogger.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DCXan/Blogger/issues"
+  },
+  "homepage": "https://github.com/DCXan/Blogger#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mustache-express": "^1.3.2",
+    "pg-promise": "^10.11.1"
+  }
+}
