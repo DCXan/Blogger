@@ -6,6 +6,8 @@ const pgp = require('pg-promise')()
 const connectionString = 'postgres://hmnapnij:G_rg81-yECF0Q4w6EERvLuV5y0oIlChP@isilo.db.elephantsql.com/hmnapnij'
 global.db = pgp(connectionString)
 
+app.use(express.urlencoded({extended: true}))
+
 const postRouter = require('./routes/posts')
 app.use('/posts', postRouter)
 
@@ -17,8 +19,6 @@ app.engine('mustache', mustacheExpress())
 app.set('views', './views')
     // extension will be .mustache
 app.set('view engine', 'mustache')
-
-app.use(express.urlencoded())
 
 let port = 8000
 app.listen(port, () => {
