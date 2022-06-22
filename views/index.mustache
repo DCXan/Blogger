@@ -1,11 +1,13 @@
 <html lang="en">
 <head>
+    <link rel = "stylesheet" href = "/css/style.css"/>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blogger - Posts</title>
 </head>
 <body>
+    <div class="main-section">
     <h1>Blog Posts</h1>
     <form method="GET" action="/posts/create">
         <button>Create new Blog post</button>
@@ -20,7 +22,6 @@
                 </small>
             </p>
             <p>{{body}}</p>
-        </li>
 
         <form method = 'POST' action = '/posts/update/{{post_id}}'>
             <button>Edit Post</button>
@@ -29,9 +30,11 @@
         <form method = 'POST' action = '/posts/delete'>
             <input type="hidden" value = '{{post_id}}' name="postID"/>
             <button>Delete Post</button>
+        </li>
         </form>
 
     {{/posts}}
     </ul>
+    </div>
 </body>
 </html>
