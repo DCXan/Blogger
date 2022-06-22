@@ -4,7 +4,7 @@ const postRouter = express.Router()
 postRouter.get('/', (req, res) => {
 
     // get all the posts from the database 
-    db.any('SELECT post_id, title, body, date_created, date_updated, is_published FROM posts')
+    db.any('SELECT post_id, title, body, date_created, date_updated, is_published FROM posts ORDER BY date_created DESC')
     .then(posts => {
         res.render('index', {posts: posts})
     }).catch(error => {
