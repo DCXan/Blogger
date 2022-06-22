@@ -59,9 +59,29 @@ accountRouter.post('/login', (req, res) => {
 
     db.one('SELECT id, username, password FROM users WHERE username = $1', [username])
     .then(user => {
-        
+        bcrypt.compare(password, user.password)
+        .then(passwordsEqual => {
+            if (passwordsEqual) {
+                if (req.session) {
+                    req.session.id = user.id
+                    console.log(user.id)
+                }
+                res.redirect('/posts')
+            } else {
+                res.render('login', {errorMessage: 'Invalid username and/or password.'})
+            }
+        }).catch(error => {
+            res.render('login', {errorMessage: 'Invalid username and/or password.'})
+        })
     })
 
+})
+
+accountRouter.post('/logout', (req, res) => {
+    if (req.session) {
+        req.session.destroy()
+    }
+    res.render('login', {logoutMessage: 'You have been logged out.'})
 })
 
 module.exports = accountRouter

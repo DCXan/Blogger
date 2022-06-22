@@ -8,22 +8,25 @@ global.db = pgp(connectionString)
 
 app.use(express.urlencoded({extended: true}))
 
+// Initialize sessions
+
+const session = require('express-session')
+
+app.use(session({
+    secret: 'random123',
+    resave: true,
+    saveUninitialized: true
+  }))
+
+  const authenticationMW = require('./middleware/authenticate')
+
 // Initialize routers
 
 const accountRouter = require('./routes/accounts')
 app.use('/account', accountRouter)
 
 const postRouter = require('./routes/posts')
-app.use('/posts', postRouter)
-
-// Initialize sessions
-
-const session = require('express-session')
-app.use(session({
-    secret: 'random123',
-    resave: false,
-    saveUninitialized: true
-  }))
+app.use('/posts', authenticationMW, postRouter)
 
 const mustacheExpress = require('mustache-express')
 
