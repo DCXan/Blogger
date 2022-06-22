@@ -8,8 +8,22 @@ global.db = pgp(connectionString)
 
 app.use(express.urlencoded({extended: true}))
 
+// Initialize routers
+
+const accountRouter = require('./routes/accounts')
+app.use('/account', accountRouter)
+
 const postRouter = require('./routes/posts')
 app.use('/posts', postRouter)
+
+// Initialize sessions
+
+const session = require('express-session')
+app.use(session({
+    secret: 'random123',
+    resave: false,
+    saveUninitialized: true
+  }))
 
 const mustacheExpress = require('mustache-express')
 
@@ -25,4 +39,8 @@ app.use(express.static('public'))
 let port = 8000
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
+})
+
+app.get('/', (req, res) => {
+    res.render('home')
 })
