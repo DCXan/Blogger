@@ -20,6 +20,8 @@ app.set('views', './views')
     // extension will be .mustache
 app.set('view engine', 'mustache')
 
+app.use(express.static('public'))
+
 let port = 8000
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
