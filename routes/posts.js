@@ -3,10 +3,10 @@ const postRouter = express.Router()
 
 postRouter.get('/', (req, res) => {
 
-    let activeUser = req.session.username
+    const activeUser = req.session.username
 
     // get all the posts from the database 
-    db.any('SELECT post_id, title, body, date_created, date_updated, is_published FROM posts ORDER BY date_created DESC')
+    db.any('SELECT post_id, title, body, date_created, date_updated, is_published, author, author_id FROM posts ORDER BY date_created DESC')
     .then(posts => {
         res.render('index', {posts: posts, activeUser})
     }).catch(error => {
@@ -16,11 +16,12 @@ postRouter.get('/', (req, res) => {
 })
 
 postRouter.post('/create', (req, res) => {
-
+    const userID = req.session.userID
+    const activeUser = req.session.username
     const title = req.body.title
     const post = req.body.body
 
-    db.none('INSERT INTO posts (title, body) VALUES ($1, $2)', [title, post])
+    db.none('INSERT INTO posts (title, body, author, author_id) VALUES ($1, $2, $3, $4)', [title, post, activeUser, userID])
     .then(() => {
         res.redirect('/posts')
     }).catch(error => {
