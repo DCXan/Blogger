@@ -9,6 +9,11 @@
 <body>
     <div class="main-section">
         <form method="POST" action="/account/logout">
+            {{#activeUser}}
+            <p>
+                Logged in as: {{activeUser}}
+            </p>
+            {{/activeUser}}
             <button>Log out</button>
           </form>
     <h1>Blog Posts</h1>

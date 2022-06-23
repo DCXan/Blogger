@@ -6,6 +6,8 @@ const pgp = require('pg-promise')()
 const connectionString = 'postgres://hmnapnij:G_rg81-yECF0Q4w6EERvLuV5y0oIlChP@isilo.db.elephantsql.com/hmnapnij'
 global.db = pgp(connectionString)
 
+const authenticationMW = require('./middleware/authenticate')
+
 app.use(express.urlencoded({extended: true}))
 
 // Initialize sessions
@@ -14,11 +16,10 @@ const session = require('express-session')
 
 app.use(session({
     secret: 'random123',
-    resave: true,
+    resave: false,
     saveUninitialized: true
   }))
 
-  const authenticationMW = require('./middleware/authenticate')
 
 // Initialize routers
 
